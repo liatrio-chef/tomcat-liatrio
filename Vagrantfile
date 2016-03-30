@@ -2,10 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "pozgo/centos7"
+  config.vm.box = "liatrio/centos7chefjava"
 
-   config.vm.network "forwarded_port", guest: 80, host: 1180
-   config.vm.network "forwarded_port", guest: 443, host: 1443
+   config.vm.network "forwarded_port", guest: 8082, host: 18082
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
@@ -20,11 +19,15 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "tomcat-liatrio"
     chef.json = {
       "java" => {
-        "jdk_version" => "8",
+        "jdk_version" => "8"
+      },
+      "tomcat_liatrio" => {
+        "connector_port" => "8082",
+        "ajp_port" => "8010"
       }
     }
   end
 
-  config.vm.provision "shell", inline: "firewall-cmd --permanent --add-port=80/tcp --add-port=443/tcp && firewall-cmd --reload"
+  config.vm.provision "shell", inline: "firewall-cmd --permanent --add-port=8082/tcp && firewall-cmd --reload"
 
 end

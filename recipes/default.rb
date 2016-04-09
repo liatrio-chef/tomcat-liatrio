@@ -28,6 +28,11 @@ tomcat_service 'petclinic' do
   action [ :enable, :start ]
 end
 
+user 'tomcat_petclinic' do
+  action :modify
+  shell "/bin/bash"
+end
+
 directory '/home/tomcat_petclinic/.ssh' do
   owner  'tomcat_petclinic'
   group  'tomcat_petclinic'

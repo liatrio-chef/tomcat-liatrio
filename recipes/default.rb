@@ -29,6 +29,8 @@ tomcat_service 'petclinic' do
 end
 
 directory '/home/tomcat_petclinic/.ssh' do
+  owner  'tomcat_petclinic'
+  group  'tomcat_petclinic'
   recursive true
 end
 

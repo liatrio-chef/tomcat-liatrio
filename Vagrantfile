@@ -22,6 +22,9 @@ Vagrant.configure(2) do |config|
         "jdk_version" => "8"
       },
       "tomcat_liatrio" => {
+        #"version" => "8.0.33",
+        #"tarball_base_path" => "http://192.168.1.125/",
+        #"checksum_base_path" => "http://192.168.1.125/",
         "connector_port" => "8082",
         "ajp_port" => "8010"
       }

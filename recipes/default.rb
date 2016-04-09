@@ -25,11 +25,7 @@ template 'server.xml' do
 end
 
 tomcat_service 'petclinic' do
-  action :enable
-end
-
-tomcat_service 'petclinic' do
-  action :start
+  action [ :enable, :start ]
 end
 
 directory '/home/tomcat_petclinic/.ssh' do
@@ -41,8 +37,4 @@ file '/home/tomcat_petclinic/.ssh/authorized_keys' do
   mode '0600'
   owner 'tomcat_petclinic'
   group 'tomcat_petclinic'
-end
-
-service 'tomcat_petclinic' do
-  action :enable
 end

@@ -1,6 +1,8 @@
 tomcat-liatrio Cookbook
 ========================
-A wrapper cookbook that installs and configures tomcat. Berkshelf is used to satisfy cookbook dependencies with Vagrant.
+A wrapper cookbook that installs and configures tomcat to be used with other *-liatrio cookbooks to form a pipeline.
+
+* The tomcat user is given an SSH public key from jenkins-liatrio cookbook to allow deploying the petclinic application via SCP after successful build.
 
 Requirements
 ------------
@@ -27,6 +29,14 @@ Just include `tomcat-liatrio` in your node's `run_list`:
   ]
 }
 ```
+
+Attributes
+----------
+default[:tomcat_liatrio][:version]  = '8.0.32'
+default[:tomcat_liatrio][:tarball_base_path]  = 'http://archive.apache.org/dist/tomcat/'
+default[:tomcat_liatrio][:checksum_base_path]  = 'http://archive.apache.org/dist/tomcat/'
+default[:tomcat_liatrio][:connector_port]  = '8080'
+default[:tomcat_liatrio][:ajp_port]  = '8009'
 
 License and Authors
 -------------------

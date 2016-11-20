@@ -4,33 +4,33 @@
 #
 #
 
-include_recipe "java"
-include_recipe "tomcat"
+include_recipe 'java'
+include_recipe 'tomcat'
 
 tomcat_install 'petclinic' do
-  version "#{node[:tomcat_liatrio][:version]}"
-  tarball_base_path "#{node[:tomcat_liatrio][:tarball_base_path]}"
-  checksum_base_path "#{node[:tomcat_liatrio][:checksum_base_path]}"
+  version node[:tomcat_liatrio][:version].to_s
+  tarball_base_path node[:tomcat_liatrio][:tarball_base_path].to_s
+  checksum_base_path node[:tomcat_liatrio][:checksum_base_path].to_s
   exclude_examples false
   exclude_docs false
 end
 
 template 'server.xml' do
-  #path   "#{node[:nginx][:dir]}/conf/server.xml"
-  path   "/opt/tomcat_petclinic/conf/server.xml"
-  source "server.xml.erb"
+  # path   "#{node[:nginx][:dir]}/conf/server.xml"
+  path   '/opt/tomcat_petclinic/conf/server.xml'
+  source 'server.xml.erb'
   owner  'tomcat_petclinic'
   group  'tomcat_petclinic'
   mode   '0600'
 end
 
 tomcat_service 'petclinic' do
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
 
 user 'tomcat_petclinic' do
   action :modify
-  shell "/bin/bash"
+  shell '/bin/bash'
 end
 
 directory '/home/tomcat_petclinic/.ssh' do

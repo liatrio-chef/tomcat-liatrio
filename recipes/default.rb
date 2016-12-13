@@ -8,9 +8,9 @@ include_recipe 'java'
 include_recipe 'tomcat'
 
 tomcat_install 'petclinic' do
-  version node[:tomcat_liatrio][:version].to_s
-  tarball_base_path node[:tomcat_liatrio][:tarball_base_path].to_s
-  checksum_base_path node[:tomcat_liatrio][:checksum_base_path].to_s
+  version node['tomcat_liatrio']['version'].to_s
+  tarball_base_path node['tomcat_liatrio']['tarball_base_path'].to_s
+  checksum_base_path node['tomcat_liatrio']['checksum_base_path'].to_s
   exclude_examples false
   exclude_docs false
 end

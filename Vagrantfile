@@ -2,12 +2,15 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = 'liatrio/centos7chefjava'
+  config.vm.box = 'bento/centos-7.2'
 
   config.vm.network 'forwarded_port', guest: 8082, host: 18_082
 
   config.vm.provider 'virtualbox' do |v|
+    # fix for bento box issue https://github.com/chef/bento/issues/682
     v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+    v.customize ['modifyvm', :id, '--cableconnected1', 'on']
+    v.customize ['modifyvm', :id, '--cableconnected2', 'on']
     v.customize ['modifyvm', :id, '--cpus', 1]
     v.customize ['modifyvm', :id, '--memory', '1024']
     # v.customize ["modifyvm", :id, "--name", "tomcat-liatrio"]
@@ -30,6 +33,4 @@ Vagrant.configure(2) do |config|
       }
     }
   end
-
-  config.vm.provision 'shell', inline: 'firewall-cmd --permanent --add-port=8082/tcp && firewall-cmd --reload'
 end

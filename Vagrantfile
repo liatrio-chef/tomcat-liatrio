@@ -15,13 +15,15 @@ end
 # Execute these shell commands outside of Bundler environment
 Bundler.with_clean_env do
   # Require ChefDK version 0.16.28
-  chefdkversion = `chef -v 2>/dev/null | head -n 1 | awk -F' ' '{print $5}' | tr -d '\n'`
+  chefdkversion = `chef -v 2>/dev/null | head -n 1 | \
+                   awk -F' ' '{print $5}' | tr -d '\n'`
   unless chefdkversion.eql?'0.16.28'
     raise "Chef Development Kit Version 0.16.28 is required.\n" \
           'Please change to version 0.16.28.'
   end
   # Require VirtualBox version 5.0.26
-  virtualboxversion = `vboxmanage --version | awk -F'r' '{print $1}' | tr -d '\n'`
+  virtualboxversion = `vboxmanage --version | \
+                       awk -F'r' '{print $1}' | tr -d '\n'`
   unless virtualboxversion.eql?'5.0.26'
     raise "VirtualBox Version 5.0.26 is required.\n" \
           'Please change to version 5.0.26.'
